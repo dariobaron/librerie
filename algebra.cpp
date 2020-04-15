@@ -29,7 +29,7 @@ vector< vector<double> > tangentBundle(const vector<double> v){
 		to_return[i] = temp;
 	}
 
-	//random_shuffle(to_return.begin()+1, to_return.end());			QUESTO NON SO SE HA SENSO FARLO RANDOM OPPURE NO
+	random_shuffle(to_return.begin()+1, to_return.end());
 
 	// Orthogonalizing the base vectors using Gram-Schimdt algorithm
 	for(int i = 1; i < to_return.size(); ++i){

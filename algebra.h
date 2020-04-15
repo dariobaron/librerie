@@ -1,3 +1,6 @@
+#ifndef algebra_h
+#define algebra_h
+
 #include <vector>
 #include <cmath>
 #include <numeric>
@@ -75,3 +78,5 @@ vector<double> buildRandomPoint(int dim, double radius = 1.);
 
 
 vector< vector<double> > tangentBundle(const vector<double> v);
+
+#endif
