@@ -1,5 +1,5 @@
-#ifndef in_out_hpp
-#define in_out_hpp
+#ifndef in_out_h
+#define in_out_h
 
 #include <iostream>
 #include <vector>

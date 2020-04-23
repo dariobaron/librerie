@@ -1,3 +1,6 @@
+#ifndef statistics_h
+#define statistics_h
+
 #include <vector>
 #include <numeric>
 #include <cmath>
@@ -127,3 +130,6 @@ protected:
 	double max;
 	vector<int> histogram;
 };
+
+
+#endif

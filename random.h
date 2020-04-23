@@ -1,3 +1,6 @@
+#ifndef random_h
+#define random_h
+
 #include <random>
 
 using namespace std;
@@ -48,3 +51,5 @@ URNG * randomEngine(){
 	static URNG * randomEng = new URNG( random_device()() );
 	return randomEng;
 }
+
+#endif
