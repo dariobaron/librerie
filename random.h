@@ -25,7 +25,7 @@ public:
 			to_return = distribution(*engine);
 		}
 		return to_return;
-	};
+	}
 protected:
 	mt19937 * engine;
 	T distribution;
@@ -39,7 +39,7 @@ public:
 	template<typename URNG>
 	double operator()(URNG & g){
 		return outcomes[distribution(g)];
-	};
+	}
 protected:
 	vector<double> outcomes;
 	discrete_distribution<> distribution;
