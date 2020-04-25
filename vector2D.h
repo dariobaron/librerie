@@ -48,6 +48,7 @@ public:
 	void insertRow(int r, const vector<T> & input){
 		if( checkColSize(input.size()) ){
 			v.insert(v.begin() + r*cols, input.begin(), input.end());
+			++rows;
 		}
 	}
 	void insertCol(int c, const vector<T> & input){
@@ -55,19 +56,23 @@ public:
 			for(int i = 0; i < input.size(); ++i){
 				v.insert(v.begin() + i*cols + c, input.begin() + i);
 			}
+			++cols;
 		}
 	}
 	void eraseRow(int r){
 		v.erase(v.begin() + r*cols, v.begin() + (r+1)*cols);
+		--rows;
 	}
 	void eraseCol(int c){
 		for(int i = 0; i < rows; ++i){
 			v.erase(v.begin() + i*cols + c);
 		}
+		--cols;
 	}
 	void pushBackRow(const vector<T> & input){
 		if( checkColSize(input.size()) ){
 			v.insert(v.end(), input.begin(), input.end());
+			++rows;
 		}
 	}
 	void pushBackCol(const vector<T> & input){
@@ -75,6 +80,7 @@ public:
 			for(int i = 0; i < input.size(); ++i){
 				v.insert(v.begin() + i*cols - 1, input[i]);
 			}
+			++cols;
 		}
 	}
 	void print(ostream & os) const{
