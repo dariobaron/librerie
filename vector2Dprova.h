@@ -10,7 +10,7 @@ template<typename T = double>
 class vectorofvectors{
 public:
 	vectorofvectors() : rows(0), cols(0), v() {};
-	vectorofvectors(int _row, int _col) : rows(row), cols(col){
+	vectorofvectors(int _row, int _col) : rows(_row), cols(_col){
 		for(int i = 0; i < rows; ++i){
 			v.emplace_back(cols);
 		}

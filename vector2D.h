@@ -3,13 +3,14 @@
 
 #include <iostream>
 #include <algorithm>
+#include <valarray>
 using namespace std;
 
 template<typename T = double>
 class vector2D{
 public:
 	vector2D() : rows(0), cols(0), v() {};
-	vector2D(int _row, int _col) : rows(row), cols(col), v(rows*cols) {};
+	vector2D(int _row, int _col) : rows(_row), cols(_col), v(rows*cols) {};
 	vector2D(const vector<vector<T>> & vecofvecs) : rows(vecofvecs.size()), cols(vecofvecs[0].size()), v(rows*cols) {
 		for(int i = 0; i < v.size(); ++i){
 			v[i] = vecofvecs[i / cols][i % cols];
@@ -76,7 +77,7 @@ public:
 protected:
 	int rows;
 	int cols;
-	vector<T> v;
+	valarray<T> v;
 private:
 	bool checkComponents(int n, int inputsize){
 		if( n == inputsize ){
