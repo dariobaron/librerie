@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
-#include <valarray>
+#include <vector>
 using namespace std;
 
 template<typename T = double>
@@ -18,45 +18,64 @@ public:
 	}
 	int row() const { return rows; }
 	int col() const { return cols; }
+	T & element(int r, int c){
+		return v[r*cols + c];
+	}
+	vector<T> getRow(int r) const{
+		return vector<T>(v.begin() + r*cols, v.begin() + (r+1)*cols);
+	}
+	vector<T> getCol(int c) const{
+		vector<T> to_return(rows);
+		for(int i = 0; i < to_return.size(); ++i){
+			to_return[i] = v[i*cols + c];
+		}
+		return to_return;
+	}
 	void setRow(int r, const vector<T> & input){
-		if( checkComponents(cols, input.size()) ){
+		if( checkColSize(input.size()) ){
 			for(int i = 0; i < input.size(); ++i){
 				v[r*cols + i] = input[i];
 			}
 		}
 	}
 	void setCol(int c, const vector<T> & input){
-		if( checkComponents(rows, input.size()) ){
+		if( checkRowSize(input.size()) ){
 			for(int i = 0; i < input.size(); ++i){
-				v[i*rows + c] = input[i];
+				v[i*cols + c] = input[i];
 			}
 		}
 	}
+	void insertRow(int r, const vector<T> & input){
+		if( checkColSize(input.size()) ){
+			v.insert(v.begin() + r*cols, input.begin(), input.end());
+		}
+	}
+	void insertCol(int c, const vector<T> & input){
+		if( checkRowSize(input.size()) ){
+			for(int i = 0; i < input.size(); ++i){
+				v.insert(v.begin() + i*cols + c, input.begin() + i);
+			}
+		}
+	}
+	void eraseRow(int r){
+		v.erase(v.begin() + r*cols, v.begin() + (r+1)*cols);
+	}
+	void eraseCol(int c){
+		for(int i = 0; i < rows; ++i){
+			v.erase(v.begin() + i*cols + c);
+		}
+	}
 	void pushBackRow(const vector<T> & input){
-		if( checkComponents(cols, input.size()) ){
+		if( checkColSize(input.size()) ){
 			v.insert(v.end(), input.begin(), input.end());
 		}
 	}
 	void pushBackCol(const vector<T> & input){
-		if( checkComponents(rows, input.size()) ){
+		if( checkRowSize(input.size()) ){
 			for(int i = 0; i < input.size(); ++i){
-				v.insert(v.begin() + i*cols, input[i]);
+				v.insert(v.begin() + i*cols - 1, input[i]);
 			}
 		}
-	}
-	vector<T> getRow(int r) const{
-		vector<T> to_return(v.begin() + r*cols, v.begin() + (r+1)*cols);
-		return to_return;
-	}
-	vector<T> getCol(int c) const{
-		vector<T> to_return(rows);
-		for(int i = 0; i < to_return.size(); ++i){
-			to_return[i] = v[i*rows + c];
-		}
-		return to_return;
-	}
-	T & element(int r, int c){
-		return v[r*cols + c];
 	}
 	void print(ostream & os) const{
 		for(int i = 0; i < rows; ++i){
@@ -77,10 +96,26 @@ public:
 protected:
 	int rows;
 	int cols;
-	valarray<T> v;
+	vector<T> v;
 private:
-	bool checkComponents(int n, int inputsize){
-		if( n == inputsize ){
+	bool checkColSize(int inputsize){
+		if( v.size() == 0 ){
+			cols = inputsize;
+			return true;
+		}
+		if( cols == inputsize ){
+			return true;
+		} else{
+			cerr << "The insertion cannot be done, wrong number of components in the inserting vector" << endl;
+			return false;
+		}
+	}
+	bool checkRowSize(int inputsize){
+		if( v.size() == 0 ){
+			rows = inputsize;
+			return true;
+		}
+		if( rows == inputsize ){
 			return true;
 		} else{
 			cerr << "The insertion cannot be done, wrong number of components in the inserting vector" << endl;
