@@ -10,7 +10,7 @@ template<typename T = double>
 class vector2D{
 public:
 	vector2D() : rows(0), cols(0), v() {};
-	vector2D(int _row, int _col) : rows(_row), cols(_col), v(rows*cols) {};
+	vector2D(int r, int c) : rows(r), cols(c), v(rows*cols) {};
 	vector2D(const vector<vector<T>> & vecofvecs) : rows(vecofvecs.size()), cols(vecofvecs[0].size()), v(rows*cols) {
 		for(int i = 0; i < v.size(); ++i){
 			v[i] = vecofvecs[i / cols][i % cols];
