@@ -21,6 +21,14 @@ public:
 	T & element(int r, int c){
 		return v[r*cols + c];
 	}
+	T element(int r, int c) const{
+		return v[r*cols + c];
+	}
+	vector<T> & getLinearVector(){ return v; };
+	vector<T> getLinearVector() const{ return v; };
+	vector<T> operator[](int r) const{
+		return vector<T>(v.begin() + r*cols, v.begin() + (r+1)*cols);
+	}
 	vector<T> getRow(int r) const{
 		return vector<T>(v.begin() + r*cols, v.begin() + (r+1)*cols);
 	}
@@ -54,8 +62,18 @@ public:
 	void insertCol(int c, const vector<T> & input){
 		if( checkRowSize(input.size()) ){
 			++cols;
-			for(int i = 0; i < input.size(); ++i){
-				v.insert(v.begin() + i*cols + c, *input.begin() + i);
+			vector<T> old(v);
+			v.resize(rows*cols);
+			auto it_old = old.begin();
+			auto it_input = input.begin();
+			for(int i = 0; i < v.size(); ++i){
+				if( i % cols == c ){
+					v[i] = *it_input;
+					++it_input;
+				} else{
+					v[i] = *it_old;
+					++it_old;
+				}
 			}
 		}
 	}

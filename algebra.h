@@ -82,7 +82,7 @@ double operator*(const pointType & a, const pointType & b){
 }
 
 
-//	Builds a random point on the "dim"-dimension hypersphere of radius
+//	Builds a random point on the "dim"-dimension hypersphere of radius "radius"
 template<typename pointType>
 pointType buildRandomPoint(int dim, double radius = 1.){
 	Random <normal_distribution<>, double, double> rnd(randomEngine(), 0., 1.);
