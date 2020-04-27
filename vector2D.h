@@ -62,17 +62,17 @@ public:
 	void insertCol(int c, const vector<T> & input){
 		if( checkRowSize(input.size()) ){
 			++cols;
-			vector<T> old(v);
+			int index_old = v.size()-1;
+			int index_input = input.size()-1;
 			v.resize(rows*cols);
-			auto it_old = old.begin();
-			auto it_input = input.begin();
-			for(int i = 0; i < v.size(); ++i){
-				if( i % cols == c ){
-					v[i] = *it_input;
-					++it_input;
+			for(int i = 0; i < rows*cols; ++i){
+				int index = rows*cols - 1 - i;
+				if( index % cols == c ){
+					v[index] = input[index_input];
+					--index_input;
 				} else{
-					v[i] = *it_old;
-					++it_old;
+					v[index] = v[index_old];
+					--index_old;
 				}
 			}
 		}

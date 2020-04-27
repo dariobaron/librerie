@@ -47,8 +47,11 @@ protected:
 
 
 template <typename URNG = mt19937>
-URNG * randomEngine(){
-	static URNG * randomEng = new URNG( random_device()() );
+URNG * randomEngine(int seed = -1){
+	if( seed == -1 ){
+		seed = random_device()();
+	}
+	static URNG * randomEng = new URNG( seed );
 	return randomEng;
 }
 
