@@ -78,7 +78,7 @@ double chiSquared(const Container & observed, const Container & expected, int nC
 
 
 // Histogram class of a set of data
-template<typename datatype = double, typename Container = vector<double>>
+template<typename Container = vector<double>>
 class Histogram{
 public:
 	Histogram(const Container & v, int bins) : data(v), bins(bins){
@@ -125,7 +125,7 @@ protected:
 	Container data;
 	int bins;
 	double amplitude;
-	vector<datatype> labels;
+	Container labels;
 	double min;
 	double max;
 	vector<int> histogram;

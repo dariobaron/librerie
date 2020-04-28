@@ -6,19 +6,23 @@
 using namespace std;
 
 //	USAGE: when creating the object, using the distributions provided by the STD <random>: http://www.cplusplus.com/reference/random/
-//	Random<distribution<>, typeArg1, typeArg2, etc> nomevariabile(randomEngine(),Arg1,Arg2,etc);
-//	"Arg1,Arg2,etc" represent the arguments of the distribution constructor.
+//	Random<distribution<>> name(randomEngine(),constructionArgs);		//	"constructionArgs" represent the arguments of the distribution constructor.
+//	Random<distribution<>> name(randomEngine(),distr);					//	"distr" represent the distribution to construct via copy-constructor.
 
-template <typename T, typename... Args>
+//	N.B. c++17 introduce automatic deduction of template parameters, so you are allowed to use the syntax:		Random name(randomEngine(),distr);
+
+template <typename T>
 class Random{
 public:
-	Random(mt19937 * eng, Args ... args) : engine(eng), distribution(args...){};
+	template<typename... Args>
+	Random(mt19937 * eng, Args ... args) : engine(eng), distribution(args...) {}
+	Random(mt19937 * eng, T distr) : engine(eng), distribution(distr) {}
 	~Random(){ engine = nullptr; }
+	template<typename... Args>
 	void initialize(Args &&... args){
-		T temp(args...);
-		distribution.param(temp.param());
-	};
-	double generate(){ return distribution(*engine); };
+		distribution.param(T(args...));
+	}
+	double generate(){ return distribution(*engine); }
 	double generate(double min, double max){
 		double to_return = distribution(*engine);
 		while( to_return > max || to_return < min ){
