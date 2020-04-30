@@ -8,7 +8,7 @@ OBJECTS = main.o # list of object files
 
 all: main.x
 main.x: $(OBJECTS)
-	$(CC) $^ -o $@
+	$(CC) $(CPPFLAGS) $^ -o $@
 
 main.o: main.cpp # other dependencies
 # obj1.o: depencencies
