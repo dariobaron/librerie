@@ -36,52 +36,6 @@ double norm(const pointType & v){
 }
 
 
-template<typename pointType>
-pointType operator+(pointType a, const pointType & b){
-	for(int i = 0; i < a.size(); ++i){
-		a[i] = a[i] + b[i];
-	}
-	return a;
-}
-
-
-template<typename pointType>
-pointType operator-(pointType a, const pointType & b){
-	for(int i = 0; i < a.size(); ++i){
-		a[i] = a[i] - b[i];
-	}
-	return a;
-}
-
-
-template<typename pointType>
-pointType operator*(pointType a, double b){
-	for(int i = 0; i < a.size(); ++i){
-		a[i] = a[i] * b;
-	}
-	return a;
-}
-template<typename pointType>
-pointType operator*(double b, pointType a){
-	return a * b;
-}
-
-
-template<typename pointType>
-pointType operator/(pointType a, double b){
-	for(int i = 0; i < a.size(); ++i){
-		a[i] = a[i] / b;
-	}
-	return a;
-}
-
-
-template<typename pointType>
-double operator*(const pointType & a, const pointType & b){
-	return inner_product(a.begin(), a.end(), b.begin(), 0.);
-}
-
-
 //	Builds a random point on the "dim"-dimension hypersphere of radius "radius"
 template<typename pointType>
 pointType buildRandomPoint(int dim, double radius = 1.){
@@ -131,6 +85,53 @@ vector<pointType> tangentBundle(const pointType v){
 	// Removing the first vector (to obtain the tangent bundle)
 	to_return.erase(to_return.begin());
 	return to_return;
+}
+
+
+/*	Overload algebric operators for vector<T>	*/
+template<typename T>
+vector<T> operator+(vector<T> a, const vector<T> & b){
+	for(int i = 0; i < a.size(); ++i){
+		a[i] = a[i] + b[i];
+	}
+	return a;
+}
+
+
+template<typename T>
+vector<T> operator-(vector<T> a, const vector<T> & b){
+	for(int i = 0; i < a.size(); ++i){
+		a[i] = a[i] - b[i];
+	}
+	return a;
+}
+
+
+template<typename T>
+vector<T> operator*(vector<T> a, T b){
+	for(int i = 0; i < a.size(); ++i){
+		a[i] = a[i] * b;
+	}
+	return a;
+}
+template<typename T>
+vector<T> operator*(T b, vector<T> a){
+	return a * b;
+}
+
+
+template<typename T>
+vector<T> operator/(vector<T> a, T b){
+	for(int i = 0; i < a.size(); ++i){
+		a[i] = a[i] / b;
+	}
+	return a;
+}
+
+
+template<typename T>
+T operator*(const vector<T> & a, const vector<T> & b){
+	return inner_product(a.begin(), a.end(), b.begin(), 0.);
 }
 
 

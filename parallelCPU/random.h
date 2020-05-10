@@ -2,6 +2,7 @@
 #define random_h
 
 #include <random>
+#include <vector>
 #include <mutex>
 using namespace std;
 
