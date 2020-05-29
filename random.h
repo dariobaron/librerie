@@ -44,16 +44,17 @@ protected:
 };
 
 
+template<typename T>
 class Discrete{
 public:
-	Discrete(vector<double> outcome_possibilities, vector<double> probability) :
+	Discrete(vector<T> outcome_possibilities, vector<double> probability) :
 				outcomes(outcome_possibilities), distribution(probability.begin(), probability.end()){};
 	template<typename URNG>
-	double operator()(URNG & g){
+	T operator()(URNG & g){
 		return outcomes[distribution(g)];
 	}
 protected:
-	vector<double> outcomes;
+	vector<T> outcomes;
 	discrete_distribution<> distribution;
 };
 

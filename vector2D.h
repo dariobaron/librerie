@@ -7,6 +7,7 @@
 #include <initializer_list>
 #include <cassert>
 #include <utility>
+#include <numeric>
 using namespace std;
 
 template<typename T = double>
@@ -213,6 +214,22 @@ vector<T> operator*(const vector2D<T> & m, const vector<T> & v){
 template<typename T>
 vector<T> operator*(const vector<T> & v, const vector2D<T> & m){
 	return m.transposed() * v;
+}
+
+
+template<typename T>
+vector2D<T> operator*(const vector2D<T> & A, const vector2D<T> & B){
+	assert( A.row() == B.col() && A.col() == B.row() && "impossible to multiply matrix with different size");
+	vector2D<T> to_return(A.row(), A.col());
+	vector<double> temp1, temp2;
+	for(int i = 0; i < to_return.row(); ++i){
+		for(int j = 0; j < to_return.col(); ++j){
+			temp1 = A.getRow(i);
+			temp2 = B.getCol(j);
+			to_return.element(i,j) = inner_product(temp1.begin(), temp1.end(), temp2.begin(), 0.);
+		}
+	}
+	return to_return;
 }
 
 
