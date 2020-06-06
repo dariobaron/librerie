@@ -17,9 +17,7 @@ public:
 	vector2D(int r, int c) : rows(r), cols(c), v(rows*cols) {};
 	vector2D(int r, int c, const T & initial_val) : rows(r), cols(c), v(rows*cols, initial_val) {};
 	vector2D(int c, const vector<T> vec) : rows(vec.size() / c), cols(c), v(vec) {
-		if( v.size() != rows * cols ){
-			cerr << "The construction cannot be done properly, wrong splitting of input vector" << endl;
-		}
+		assert( v.size() == rows * cols && "The construction cannot be done properly, wrong splitting of input vector" );
 		v.resize(rows * cols);
 	}
 	vector2D(const vector<vector<T>> & vecofvecs) : rows(vecofvecs.size()), cols(vecofvecs[0].size()), v(rows*cols) {
@@ -138,6 +136,16 @@ public:
 					--index_old;
 				}
 			}
+		}
+	}
+	void popBackRow(){
+		if( rows > 0 ){
+			eraseRow(rows-1);
+		}
+	}
+	void popBackCol(){
+		if( cols > 0 ){
+			eraseCol(cols-1);
 		}
 	}
 	vector2D<T> transposed() const{
