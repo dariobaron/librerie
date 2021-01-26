@@ -206,6 +206,32 @@ private:
 
 
 template<typename T>
+vector2D<T> operator+(const vector2D<T> & a, const vector2D<T> & b):{
+	assert( a.row() == b.row() && a.col() == b.col() && "impossible sum matrices with different shape");
+	vector2D<T> to_return(a.row(), a.col());
+	for(int i = 0; i < a.row(); ++i){
+		for(int j = 0; j < a.col(); ++j){
+			to_return.element(i,j) = a.element(i,j) + b.element(i,j);
+		}
+	}
+	return to_return;
+}
+
+
+template<typename T>
+vector2D<T> operator-(const vector2D<T> & a, const vector2D<T> & b):{
+	assert( a.row() == b.row() && a.col() == b.col() && "impossible sum matrices with different shape");
+	vector2D<T> to_return(a.row(), a.col());
+	for(int i = 0; i < a.row(); ++i){
+		for(int j = 0; j < a.col(); ++j){
+			to_return.element(i,j) = a.element(i,j) - b.element(i,j);
+		}
+	}
+	return to_return;
+}
+
+
+template<typename T>
 vector<T> operator*(const vector2D<T> & m, const vector<T> & v){
 	assert( m.col() == v.size() && "incompatibility betweeen vector2D cols and vector rows");
 	vector<T> to_return(m.row());
